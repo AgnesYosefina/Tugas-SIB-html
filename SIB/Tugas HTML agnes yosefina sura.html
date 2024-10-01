@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Sederhana</title>
+</head>
+<body>
+    <h2>Form Pendaftaran</h2>
+    <form onsubmit="return validateForm()" enctype="multipart/form-data" method="post">
+        <!-- Nama Lengkap -->
+        <label for="fullname">Nama Lengkap:</label><br>
+        <input type="text" id="fullname" name="fullname" required minlength="3"><br><br>
+
+        <!-- Email -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Password -->
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required minlength="8"><br><br>
+
+        <!-- Tanggal Lahir -->
+        <label for="dob">Tanggal Lahir:</label><br>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <!-- Jenis Kelamin -->
+        <label for="gender">Jenis Kelamin:</label><br>
+        <select id="gender" name="gender" required>
+            <option value="laki-laki">Laki-laki</option>
+            <option value="perempuan">Perempuan</option>
+        </select><br><br>
+
+        <!-- Nomor Telepon -->
+        <label for="phone">Nomor Telepon:</label><br>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]+" required><br><br>
+
+        <!-- Upload Foto Profil -->
+        <label for="profile_pic">Unggah Foto Profil:</label><br>
+        <input type="file" id="profile_pic" name="profile_pic" accept="image/*" required><br><br>
+
+        <!-- Persetujuan Syarat dan Ketentuan -->
+        <label>
+            <input type="checkbox" id="terms" name="terms" required> Saya menyetujui syarat dan ketentuan
+        </label><br><br>
+
+        <!-- Tombol Submit -->
+        <button type="submit">Daftar</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            // Validasi umur minimal 18 tahun
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date();
+            const age = today.getFullYear() - dob.getFullYear();
+            const monthDifference = today.getMonth() - dob.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (age < 18) {
+                document.body.style.backgroundColor = 'lightblue';
+                alert('Pengguna harus berusia minimal 18 tahun.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
